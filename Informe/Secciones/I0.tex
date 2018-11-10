@@ -1,0 +1,63 @@
+Filtro adaptativo
+\emph{Steepest Desend}	
+	\begin{equation*}
+		\hat{w}(n+1) = \hat{w}(n) + \mu\,p
+	\end{equation*}
+	donde $\mu$ regula velocidad (paso) y $p = -\nabla\, J(\hat{w}(n)) = 2p - 2R\,\omega(n)$ con $\mu > 0$ y $M = I$.
+
+LMS (gradiente estocástico)
+	\begin{align*}
+		\hat{w}(n+1) &= \hat{w}(n) - \mu\, 2(-\hat{p} + \hat{R}\,\hat{w}(n))\\
+		\hat{R} &= u(n) \, u^{H}(n)\\
+		\hat{p} &= u(n) \, d^{*}(n)
+	\end{align*}
+
+Características de los filtros adaptativos:
+	\begin{enumerate}
+		\item Velocidad de convergencia
+		\item Desajuste (diferencia entre J y J de Wiener) [\emph{Mismatch}]
+		\item Rastreo [\emph{Tracking}] (si mi sistema tiene características que cambian con el tiempo, que pueda seguirlas)
+		\item Robustez (para pequeños errores que el resultado me de con pequeños errores
+	\end{enumerate}
+
+	En base a estas características se elige el filtro adaptativo.
+
+	\begin{equation*}
+		\begin{cases}
+			i(n) = A_0 \sen (\omega_0 \, n + \theta)\\
+			u(n) = A_1 \sen (\omega_0 \, n) & \text{con $\theta=0$}
+		\end{cases}
+	\end{equation*}
+
+\subsection{Ejercicio 1}
+	Analice desde el punto de vista de la estimación lineal óptima el problema genérico de cancelar una señal de referecia correlacionada con la misma. ¿Cuál es la señal de error? ¿Qué otras hipótesis pueden ser necesarias? (Parecido a uno del cuatri pasado de cancelación de ruido)
+	\begin{equation*}
+		\begin{cases}
+			d(n) = i(n)\\
+			d(n) = s(n) + i(n)
+		\end{cases}
+	\end{equation*}
+
+	\underline{\Large{Respuesta}}\\
+	\graficarPNG{0.4}{Wiener2}{Diagrama en bloques del problema.}{fig:bloques_wiener}
+	
+	Si $d[n]=i[n]$ 
+	
+
+\subsection{Ejercicio 2}
+	Implemente un LMS para cancelar i(n) y escuchar el audio lo mejor posible.\\
+	a) Reescribir el algoritmo en función del error $e(n)$
+		\begin{equation*}
+			\underline{\hat{w}}(n+1) = \underline{\hat{w}}(n) + \mu^{'} \underline{u}(n)\, e^{*}(n)
+		\end{equation*}
+
+	b) Varie $\mu$ (a veces tarda más a veces menos en converger y a veces no llega a nada)
+	
+	c) Varie el rango del filtro (L)
+	
+	d) A mitad de la simulación tiene que cambiar de forma abrupta cada uno de los parámetros ($A_0$ $\omega_0$ y $\theta$). Grafique el error absoluto, los coeficientes (deberíamos ver que convergen) y la canción con la canción estimada.
+
+
+	\underline{\Large{Respuesta}}\\
+
+	
