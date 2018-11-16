@@ -12,7 +12,7 @@ salida_estimada = zeros(1, length(salida));                 % Hago espacio para 
 w = zeros(largo_parte_fir + largo_parte_iir, length(entrada) - largo_parte_fir);
 
 % Algoritmo LMS.
-for i = largo_parte_fir : length(entrada)
+for i = (largo_parte_fir + largo_parte_iir) : length(entrada)
     entrada_ventaneada = [entrada(i : -1 : i - largo_parte_fir + 1), salida(i - 1 : -1 : i - largo_parte_iir)];
     w(:, i) = w(:, i - 1) + mu * entrada_ventaneada' * (salida(i) - entrada_ventaneada * w(:, i - 1));
 end
