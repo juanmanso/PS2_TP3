@@ -3,9 +3,6 @@
 %
 %       handle: Handle de figure.
 %       size: Vector de 1x2 del tamaño en píxeles
-%
-%
-%
 function setGraphSize(handle,size)
     EsMatlab = (exist('MATLAB')~=0);
     if EsMatlab==1

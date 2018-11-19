@@ -1,6 +1,6 @@
 config_m;
 
-largo_senial_entrada = 4000;     % Es el largo de la senial u de referencia.
+largo_senial_entrada = 1000;     % Es el largo de la senial u de referencia.
 largo_parte_fir = 2;              % Cantidad de coeficientes del numerador.
 largo_parte_iir = 2;              % Cantidad de coeficientes del denominador.
 mu = 0.1;                         % Constante de aprendizaje.
@@ -34,27 +34,34 @@ end
 w(:, end)
 
 % Figura de convergencia de los coeficientes.
-figure(2);
+fig1=figure();
 hold on;
-plot(w');
+plot(w','LineWidth',3);
 fir_line_1=refline(0,B(1));
 fir_line_2=refline(0,B(2));
 fir_line_3=refline(0,A(2));
 fir_line_4=refline(0,A(3));
 fir_line_1.LineStyle='--';
-fir_line_1.LineWidth=2;
+fir_line_1.LineWidth=1;
+fir_line_1.Color=colors.gecko;
 fir_line_2.LineStyle='--';
-fir_line_2.LineWidth=2;
+fir_line_2.LineWidth=1;
+fir_line_2.Color=colors.castaway;
 fir_line_3.LineStyle='--';
-fir_line_3.LineWidth=2;
+fir_line_3.LineWidth=1;
 fir_line_4.LineStyle='--';
-fir_line_4.LineWidth=2;
+fir_line_4.LineWidth=1;
+fir_line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
 title('Convergencia De Coeficientes');
+setGraphSize(fig1,wide_1);
+
 
 % Obtención de los resultados
 
 result=solve(w(1:2,end)'==numB,w(3:4,end)'==denA(2:3),[m k b]);
 result=double(struct2array(result));
-fprintf('Los resultados de la estimación por LMS son:\n')
-fprintf('m=%.2f \nk=%.2f \nb=%.2f\n',result(1),result(2),result(3))
+if ~isempty(result)
+    fprintf('Los resultados de la estimación por LMS son:\n')
+    fprintf('m=%.2f \nk=%.2f \nb=%.2f\n',result(1),result(2),result(3))
+end
