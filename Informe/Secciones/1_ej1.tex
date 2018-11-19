@@ -1,51 +1,26 @@
-	%\lstinputlisting[linerange=Hola-Chau]{../Informe/test.m}
-	
-	\Juan{Preguntar a Emi si podemos usar un \emph{approach} similar al otro tp o si está muy mal}
-	Se define la variable de estado $\vect{x}(t)$ asociada al sistema como:
-		\begin{equation*}
-			\vect{x}(t) = \begin{bmatrix} {p_x}(t) \\[0.3em] p_y(t) \\[0.3em] {v_x}(t) \\[0.3em] v_y(t) \\[0.3em] c_{11}(t) \\[0.3em] c_{12}(t) \\[0.3em] c_{21}(t) \\[0.3em] c_{22}(t) \end{bmatrix} \qquad%
-			\dot{\vect{x}}(t) = \begin{bmatrix} {\dot{p}_x}(t) \\[0.3em] \dot{p}_y(t) \\[0.3em] {\dot{v}_x}(t) \\[0.3em] \dot{v}_y(t) \\[0.3em] \dot{c}_{11}(t) \\[0.3em] \dot{c}_{12}(t) \\[0.3em] \dot{c}_{21}(t) \\[0.3em] \dot{c}_{22}(t) \end{bmatrix}
-		\end{equation*}
+La ecuación del sistema de masa, resorte y amortiguador es la siguiente:
 
-	Así el modelo resulta:
-		\begin{equation*}
-			\Sigma:
-			\begin{cases}
-				\dvect{x}(t) = A\: \vect{x}(t) + B \: \vect{\xi}(t) \\
-				\vect{y}(t) = C\: \vect{x}(t) + \vect{\eta}(t)
-			\end{cases}
-		\end{equation*}
-	donde $\vect{\xi}(t)$ es el ruido de proceso y $\vect{\eta}(t)$ el ruido de medición. La matriz $A$ contiene la información de la dinámica del sistema, $B$ es la matriz de entrada del ruido de proceso, y la matriz de salida es $C$, que conecta los estados con las mediciones de posición y velocidad. Las matrices quedan caracterizadas por la ecuación \eqref{eq:matrix_cont}.
-		\begin{equation}
-			\label{eq:matrix_cont}
-			A(t) = \begin{pmatrix}0&0&1&0&0&0&0&0\\[0.3em]0&0&0&1&0&0&0&0\\[0.3em]0&0&0&0&a^b_x&a^b_y&0&0\\[0.3em]0&0&0&0&0&0&a^b_x&a^b_y&\\[0.3em]0&0&0&0&0&\omega^b&0&0\\[0.3em]0&0&0&0&-\omega^b&0&0&0\\[0.3em]0&0&0&0&0&0&0&\omega^b\\[0.3em]0&0&0&0&0&0&-\omega^b&0\end{pmatrix} \quad%
-		B = \begin{pmatrix}1&0&0&0&0&0&0&0\\[0.3em]0&1&0&0&0&0&0&0\\[0.3em]0&0&1&0&0&0&0&0\\[0.3em]0&0&0&1&0&0&0&0\\[0.3em]0&0&0&0&1&0&0&0\\[0.3em]0&0&0&0&0&1&0&0\\[0.3em]0&0&0&0&0&0&1&0\\[0.3em]0&0&0&0&0&0&0&1\end{pmatrix} \quad%
-			C = \begin{pmatrix}I&0&0\\[0.3em]0&I&0\end{pmatrix}
-		\end{equation}
-	
-	Para poder tratar el sistema en forma digital, es necesario definir un período de muestreo $T$, que en este caso es igual al periodo de muestreo del giróscopo \SI{100}{\Hz}. Así se tiene que la exponencial matricial es:
-		\begin{equation*}
-			e^{A\,t} \approx I + A\,T + \frac{(A\,T)^2}{2} + \hdots
-		\end{equation*}
+\begin{equation*}
+	M \ddot{x_{0}}(t) + k (x_{0}(t) - x_{1}(t)) + b (\dot{x_{0}}(t) - \dot{x_{1}}(t)) = 0
+\end{equation*}
 
-	Truncando a segundo orden y reemplazando por $A$ se obtiene:
-		\begin{equation*}
-			A_d = \begin{pmatrix}	1&0&T&0&a^b_x\:\frac{T^2}{2}&a^b_y\:\frac{T^2}{2}&0&0\\[0.3em]%
-						0&1&0&T&0&0&a^b_x\:\frac{T^2}{2}&a^b_y\:\frac{T^2}{2}\\[0.3em]%
-						0&0&1&0&a^b_x\:T-\:a^b_y\:\omega^b\:\frac{T^2}{2}&a^b_y\: T+a^b_x\:\omega^b\:\frac{T^2}{2}&0&0\\[0.3em]%
-						0&0&0&1&0&0&a^b_x\:T-\:a^b_y\:\omega^b\:\frac{T^2}{2}&a^b_y\: T+a^b_x\:\omega^b\:\frac{T^2}{2}\\[0.3em]%
-						0&0&0&0&1-\frac{(\omega\:T)^2}{2}&\omega\:T&0&0\\[0.3em]%
-						0&0&0&0&-\omega\:T&1-\frac{(\omega\:T)^2}{2}&0&0\\[0.3em]%
-						0&0&0&0&0&0&1-\frac{(\omega\:T)^2}{2}&\omega\:T\\[0.3em]%
-						0&0&0&0&0&0&-\omega\:T&1-\frac{(\omega\:T)^2}{2}
-		\end{pmatrix}
-		\end{equation*}
+Para poder discretizar el mismo se utilizaron las siguientes aproximaciones:
 
+\begin{equation*}
+	\dot{x_{0}} \approx \frac{x_{0}(n + 1) - x_{0}(n)}{\Delta T}
+\end{equation*}
 
-		Con dicho modelo y las mediciones de posición, velocidad, aceleración no inercial y velocidad angular no inercial, se aplica el filtro de Kalman 
-		\Juan{Qué opinan de éste final de oración?}
-		donde se actualiza la matriz $A_d$ cada $T_s$ segundos y cada $100\, T_s$ llega la medición del radar haciendo posible la correción de los estados.
-	
-%
-%	En cuanto a los ruidos, se hace la suposición que se tratan de ruidos blancos con matrices de covarianza $Q_{d}$ para el ruido de proceso y $R_{d}$ para el ruido de medición. Cabe aclarar que el hecho de que se trate de ruidos blancos no implica que $Q_{d}$ y $R_{d}$ sean diagonales. Ambas matrices dan información de la correlación componente a componente de los vectores de ruido.
-%	
+\begin{equation*}
+	\ddot{x_{0}} \approx \frac{x_{0}(n + 1) - 2 x_{0}(n) + x_{0}(n - 1)}{\Delta T^2}
+\end{equation*}
+
+\begin{equation*}
+	\dot{x_{1}} \approx \frac{x_{1}(n + 1) - x_{1}(n)}{\Delta T}
+\end{equation*}
+
+Donde $\Delta T$ es el período de muestreo. Con todas las aproximaciones anteriores, y la ecuación del sistema en tiempo contínuo, se llega a la siguiente ecuacion en diferencias para el tiempo discreto.
+
+\begin{equation*}
+	x_{0}(n) = \frac{b \Delta T}{M + b \Delta T} x_{1}(n) + \frac{k \Delta T^2 - b \Delta T}{M + b \Delta T} x_{1}(n - 1) - \frac{k \Delta T^2 - 2 M - b \Delta T}{M + b \Delta T} x_{0}(n - 1) - \frac{M}{M + b \Delta T} x_{0}(n - 2)
+\end{equation*}
+
