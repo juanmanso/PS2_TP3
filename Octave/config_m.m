@@ -22,6 +22,6 @@ addpath('./Material')
 colors=load('colors.mat');
 
 % Relación de aspecto
-wide_1=[1200 700];
+wide_1=[800 500];
 vertical_1=[700 1200];
 

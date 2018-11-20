@@ -3,7 +3,7 @@ config_m;
 % Imprimir imágenes?
 bool_print=1;
 
-largo_senial_entrada = 5000;     % Es el largo de la senial u de referencia.
+largo_senial_entrada = 1500000;     % Es el largo de la senial u de referencia.
 largo_parte_fir = 2;              % Cantidad de coeficientes del numerador.
 largo_parte_iir = 2;              % Cantidad de coeficientes del denominador.
 mu = 0.1;                         % Constante de aprendizaje.
@@ -20,9 +20,13 @@ denA=[1 (k*ts^2-2*m-b*ts)/(m+b*ts) m/(m+b*ts)];
 
 B=double(subs(numB,{b,m,k},[b_const m_const k_const]));
 A=double(subs(denA,{b,m,k},[b_const m_const k_const]));
+B2=double(subs(numB,{b,m,k},[b_const m_const 0.1]));
+A2=double(subs(denA,{b,m,k},[b_const m_const 0.1]));
 
 entrada = wgn(1, largo_senial_entrada, 1);                  % Genero referencia.
-salida = filter(B, A, entrada);     % La paso por el sistema a estimar.
+salida = filter(B, A, entrada(1:end/32));     % La paso por el sistema a estimar.
+salida2 = filter(B2, A2, entrada((end/32)+1:end));     % La paso por el sistema a estimar.
+salida=[salida salida2];
 
 salida_estimada = zeros(1, length(salida));                 % Hago espacio para la estimacion de la salida y los w.
 w = zeros(largo_parte_fir + largo_parte_iir, length(entrada) - largo_parte_fir);
@@ -40,10 +44,10 @@ w(:, end)
 fig1=figure();
 hold on;
 plot(w','LineWidth',3);
-fir_line_1=refline(0,B(1));
-fir_line_2=refline(0,B(2));
-fir_line_3=refline(0,A(2));
-fir_line_4=refline(0,A(3));
+fir_line_1=refline(0,B2(1));
+fir_line_2=refline(0,B2(2));
+fir_line_3=refline(0,A2(2));
+fir_line_4=refline(0,A2(3));
 fir_line_1.LineStyle='--';
 fir_line_1.LineWidth=1;
 fir_line_1.Color=colors.gecko;
@@ -56,7 +60,7 @@ fir_line_4.LineStyle='--';
 fir_line_4.LineWidth=1;
 fir_line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
-title('Convergencia De Coeficientes LMS');
+title('Convergencia De Coeficientes LMS - Corte de resorte');
 setGraphSize(fig1,wide_1);
 leg1=legend({'$\hat{B1}$','$\hat{B2}$','$\hat{A2}$','$\hat{A3}$','$B1$','$B2$','$A2$','$A3$'});
 set(leg1,'Interpreter','latex');
@@ -64,9 +68,8 @@ leg1.Location='eastoutside';
 xlabel('Muestras');
 
 if bool_print
-    print('../Informe/Figuras/graf_ej3','-dpdf','-bestfit');
+    print('../Informe/Figuras/graf_ej4','-dpdf','-bestfit');
 end
-
 
 % Obtención de los resultados
 
