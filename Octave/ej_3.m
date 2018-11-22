@@ -72,11 +72,12 @@ end
 % Obtención de los resultados
 delta=0.01;
 % result=solve(w(1:2,end)'==numB,w(3:4,end)'==denA(2:3),[m k b]);
-result=solve(delta*[1 1]>abs(numB-w(1:2,end)'),delta*[1 1]>abs(denA(2:3)-w(3:4,end)'),m_const==m,[m k b]);
+% result=solve(w(1:2,end)'==numB,m_const==m,[m k b]);
+result=solve(mean(w(1:2,end-400:end)')==numB,m_const==m,[m k b]);
 result=double(struct2array(result));
 if ~isempty(result)
     fprintf('Los resultados de la estimación por LMS son:\n')
-    fprintf('m=%.2f \nk=%.2f \nb=%.2f\n',result(1),result(2),result(3))
+    fprintf('m=%.4f \nk=%.4f \nb=%.4f\n',result(1),result(2),result(3))
 end
 
 % x0=[0.1,0.1,0.1];
