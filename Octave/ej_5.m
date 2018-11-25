@@ -61,6 +61,7 @@ fir_line_4.LineStyle='--';
 fir_line_4.LineWidth=1;
 fir_line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
+grid minor;
 title('Convergencia De Coeficientes NLMS');
 setGraphSize(fig1,wide_1);
 leg1=legend({'$\hat{B1}$','$\hat{B2}$','$\hat{A2}$','$\hat{A3}$','$B1$','$B2$','$A2$','$A3$'});
@@ -71,6 +72,10 @@ xlabel('Muestras');
 if bool_print
     print('../Informe/Figuras/graf_ej5','-dpdf','-bestfit');
 end
+
+w_NLMS=w;
+
+save('LMSyNLMSdata.mat','w_NLMS','-append');
 
 % Obtención de los resultados
 
@@ -135,6 +140,7 @@ fir_k0line_4.LineStyle='-.';
 fir_k0line_4.LineWidth=1;
 fir_k0line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
+grid minor;
 title({'Convergencia De Coeficientes NLMS - Corte de resorte';'\sigma_{N}=0.01'});
 setGraphSize(fig1,wide_1);
 leg1=legend({'$\hat{B1}$','$\hat{B2}$','$\hat{A2}$','$\hat{A3}$','$B1$','$B2$','$A2$','$A3$'});
@@ -210,6 +216,7 @@ fir_k0line_4.LineStyle='-.';
 fir_k0line_4.LineWidth=1;
 fir_k0line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
+grid minor;
 title({'Convergencia De Coeficientes NLMS - Corte de resorte';'\sigma_{N}=0.001'});
 setGraphSize(fig1,wide_1);
 leg1=legend({'$\hat{B1}$','$\hat{B2}$','$\hat{A2}$','$\hat{A3}$','$B1$','$B2$','$A2$','$A3$'});

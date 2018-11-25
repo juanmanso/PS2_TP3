@@ -57,6 +57,7 @@ fir_line_4.LineStyle='--';
 fir_line_4.LineWidth=1;
 fir_line_4.Color=colors.orchid;
 %axis([largo_parte_fir + largo_parte_iir, largo_senial_entrada, -0.3, 0.7]);
+grid minor;
 title('Convergencia De Coeficientes LMS');
 setGraphSize(fig1,wide_1);
 leg1=legend({'$\hat{B1}$','$\hat{B2}$','$\hat{A2}$','$\hat{A3}$','$B1$','$B2$','$A2$','$A3$'});
@@ -68,6 +69,8 @@ if bool_print
     print('../Informe/Figuras/graf_ej3','-dpdf','-bestfit');
 end
 
+w_LMS=w;
+save('LMSyNLMSdata.mat','w_LMS','-append');
 
 % Obtención de los resultados
 delta=0.01;
