@@ -1,7 +1,7 @@
 La ecuación del sistema de masa, resorte y amortiguador es la siguiente:
 
 \begin{equation*}
-	M \ddot{x}_{0}(t) + k (x_{0}(t) - x_{1}(t)) + b (\dot{x}_{0}(t) - \dot{x}_{1}(t)) = 0
+	m \ddot{x}_{0}(t) + k (x_{0}(t) - x_{1}(t)) + b (\dot{x}_{0}(t) - \dot{x}_{1}(t)) = 0
 \end{equation*}
 
 Para poder discretizar el mismo se utilizaron las siguientes aproximaciones:
@@ -20,6 +20,6 @@ Para poder discretizar el mismo se utilizaron las siguientes aproximaciones:
 donde $\Delta T$ es el período de muestreo. Con todas las aproximaciones anteriores, y la ecuación del sistema en tiempo continuo, se llega a la siguiente ecuación en diferencias para el tiempo discreto.
 
 \begin{equation*}
-	x_{0}(n) = \frac{b \;\Delta T}{M + b \;\Delta T} x_{1}(n) + \frac{k \;\Delta T^2 - b \;\Delta T}{M + b \;\Delta T} x_{1}(n - 1) - \frac{k \;\Delta T^2 - 2 M - b \;\Delta T}{M + b \;\Delta T} x_{0}(n - 1) - \frac{M}{M + b \;\Delta T} x_{0}(n - 2)
+	x_{0}(n) = \frac{b \;\Delta T}{m + b \;\Delta T} x_{1}(n) + \frac{k \;\Delta T^2 - b \;\Delta T}{m + b \;\Delta T} x_{1}(n - 1) - \frac{k \;\Delta T^2 - 2 m - b \;\Delta T}{m + b \;\Delta T} x_{0}(n - 1) - \frac{m}{m + b \;\Delta T} x_{0}(n - 2)
 \end{equation*}
 
