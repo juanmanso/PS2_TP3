@@ -73,7 +73,7 @@ if bool_print
     print('../Informe/Figuras/graf_ej5','-dpdf','-bestfit');
 end
 
-w_NLMS=w;
+w_NLMS=w(:,1:1000);
 
 save('LMSyNLMSdata.mat','w_NLMS','-append');
 
