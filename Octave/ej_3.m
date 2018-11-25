@@ -3,6 +3,7 @@ config_m;
 % Imprimir imágenes?
 bool_print=1;
 
+%%% Implementacion %%%
 largo_senial_entrada = 1000;     % Es el largo de la senial u de referencia.
 largo_parte_fir = 2;              % Cantidad de coeficientes del numerador.
 largo_parte_iir = 2;              % Cantidad de coeficientes del denominador.
@@ -36,6 +37,8 @@ end
 
 % Coeficientes Al Final.
 w(:, end)
+
+%%% fin %%%
 
 % Figura de convergencia de los coeficientes.
 fig1=figure();
@@ -72,16 +75,18 @@ end
 w_LMS=w;
 save('LMSyNLMSdata.mat','w_LMS','-append');
 
-% Obtención de los resultados
-delta=0.01;
 % result=solve(w(1:2,end)'==numB,w(3:4,end)'==denA(2:3),[m k b]);
 % result=solve(w(1:2,end)'==numB,m_const==m,[m k b]);
+% x0=[0.1,0.1,0.1];
+% fsolve(fun,x0);
+
+%%% Resultados %%%
+% Obtencion de los resultados
+delta=0.01;
 result=solve(mean(w(1:2,end-400:end)')==numB,m_const==m,[m k b]);
 result=double(struct2array(result));
 if ~isempty(result)
-    fprintf('Los resultados de la estimación por LMS son:\n')
+    fprintf('Los resultados de la estimacion por LMS son:\n')
     fprintf('m=%.4f \nk=%.4f \nb=%.4f\n',result(1),result(2),result(3))
 end
 
-% x0=[0.1,0.1,0.1];
-% fsolve(fun,x0);
