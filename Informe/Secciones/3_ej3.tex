@@ -2,9 +2,7 @@
 	A continuación se presenta el \emph{script} con la implementación del algorítmo. 
 	\lstinputlisting[linerange=Implementacion-fin]{ej_3.m}
 
-	En la Figura \ref{fig:ej3} se expone la convergencia de los coeficientes en función de la cantidad de muestras (tiempo). Se puede ver que para más de 300 muestras, la estimación es correcta. Sin embargo al presentarse ruido en la medición de la salida, la estimación fluctúa alrededor del valor correcto. 
-	\Juan{No estoy seguro que esté taaan bien}
-	Si la incertidumbre de la medición es muy grande, la estimación tardará más en converger y oscilará en un rango mayor entorno al verdadero.
+	En la Figura \ref{fig:ej3} se expone la convergencia de los coeficientes en función de las de muestras (tiempo). Se puede ver que para más de 300 muestras, la estimación es correcta. Sin embargo al presentarse ruido en la medición de la salida, la estimación fluctúa alrededor del valor correcto. Si la incertidumbre de la medición es muy grande, la estimación tardará más en converger y oscilará en un rango mayor entorno al verdadero.
 
 	\begin{figure}[h!]
 		\centering
@@ -14,7 +12,7 @@
 	\end{figure}
 
 	\lstinputlisting[linerange=Resultados- ]{ej_3.m}
-	Los resultados de la simulación a través de la función \texttt{solve()} se exponen en la siguiente tabla: 
+	Los resultados de la simulación a través de la función \texttt{solve()} se exponen en la siguiente tabla. Se observa que los errores son del orden del 1\%.
 
 		\begin{table}[h!]
 			\centering
@@ -28,8 +26,5 @@
 			\caption{Resultados de la estimación de los parámetros.}
 			\label{tab:res_ej3}
 		\end{table}
-
-		\Juan{No sé qué poner ahí}
-	Se puede ver que los errores son del orden del 1\% siendo este valor muy bajo.
 
 

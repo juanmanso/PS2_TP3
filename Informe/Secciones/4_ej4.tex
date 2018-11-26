@@ -1,4 +1,5 @@
-
+	En la presente Sección se analiza el caso en que se corta el resorte en el medio de la simulación, es decir que la constante $k$ se anula. Las variaciones de los coeficientes se presentan las Figuras \ref{fig:ej4} y \ref{fig:ej4bis}. 
+	Se propone que $k\neq0$ en particular \num{.1} porque de lo contrario la convergencia es muy lenta. Si se supone que el error de medición es del orden de \SI{.01}{\m} se ve en la Figura \ref{fig:ej4} que los coeficientes no convergen a los valores correctos. En cambio si se supone incertidumbres del orden de \SI{0.001}{\m} converge mejor aunque lentamente (\ref{fig:ej4bis}). 
 
 	\begin{figure}[h!]
 		\centering
@@ -6,9 +7,6 @@
 		\caption{Convergencia de los parámetros si se corta el resorte con $\sigma_N = \SI{.01}{\m}$.}
 		\label{fig:ej4}
 	\end{figure}
-
-	En la presente Sección se analiza el caso en que se corta el resorte en el medio de la simulación, es decir que la constante $k$ se anula. Las variaciones de los coeficientes se presentan las Figuras \ref{fig:ej4} y \ref{fig:ej4bis}. 
-	Se propone que $k\neq0$ en particular \num{.1} porque de lo contrario la convergencia es muy lenta. Si se supone que el error es del orden de \SI{.01}{\m} se ve en la Figura \ref{fig:ej4} que los coeficientes no convergen a los valores correctos. En cambio si se supone incertidumbres del orden de \SI{0.001}{\m} converge mejor aunque lentamente (\ref{fig:ej4bis}). 
 
 	\begin{figure}[h!]
 		\centering
@@ -18,7 +16,8 @@
 	\end{figure}
 
 
-	
+		La estimación de $k$ difiere mucho del valor real cuando el ruido es alto. Este resultado coincide con la mala estimación de los coeficientes de la Figura \ref{fig:ej4}. Del mismo modo se ratifica la buena estimación cuando el ruido es bajo, obteniendose $k=\num{0.2}$ y una mejor convergencia en la Figura \ref{fig:ej4bis}.
+		
 		\begin{table}[h!]
 			\centering
 			\begin{tabular}{cccc}
@@ -30,5 +29,3 @@
 				\bottomrule
 			\end{tabular}
 		\end{table}
-
-		La estimación de $k$ difiere mucho del valor real cuando el ruido es alto. Este resultado coincide con la mala estimación de los coeficientes de la Figura \ref{fig:ej4}. Del mismo modo se ratifica la buena estimación cuando el ruido es bajo, obteniendose $k=\num{0.2}$ y una mejor convergencia en la Figura \ref{fig:ej4bis}.

@@ -3,7 +3,7 @@
 	El algoritmo NLMS se diferencia del LMS en que la correción que se hace es unitaria, es decir que se normaliza la señal de referencia. Así se mejora la convergencia del filtro porque se hace más insensible a los cambios de amplitud de la señal de entrada. La ecuación del filtro NLMS resulta entonces: 
 
 	\begin{equation*}
-		w(n) = w(n - 1) + \mu \> \frac{U(n)}{\|U(n)\|} \> [d(n) - U(n)^* w(n - 1)]
+		w(n) = w(n - 1) + \mu \> \frac{U(n)}{\delta + \|U(n)\|^2} \> [d(n) - U(n)^* w(n - 1)]
 	\end{equation*}
 
 	
@@ -15,7 +15,7 @@
 		\label{fig:ej5}
 	\end{figure}
 
-	Se replica el caso de la Sección \ref{sec:ej4} donde se corta el resorte. Al igual que en dicha sección, se impone $k=0,1$ y se ve que cuando $\sigma_N=0,001$ (Figura \ref{fig:ej5_k01}) el algoritmo converge a los valores correctos para todos los coeficientes mientras que con $\sigma_N=0,01$ (Figura \ref{fig:ej5_k0}) no se cumple. 
+	Se replica el caso de la Sección \ref{sec:ej4} donde se corta el resorte. Al igual que en dicha sección, se impone $k=0,1$ y se ve que cuando $\sigma_N=0,001$ (Figura \ref{fig:ej5_k01}) el algoritmo converge a los valores correctos para todos los coeficientes, mientras que con $\sigma_N=0,01$ (Figura \ref{fig:ej5_k0}) esto no se cumple. 
 	
 	\begin{figure}[h!]
 		\centering
@@ -40,7 +40,7 @@
 		\label{fig:ej5_comp}
 	\end{figure}
 
-	Para comparar los filtros LMS y NLMS se genera la Figura \ref{fig:ej5_comp} que superpone los resultados de ambas estimaciones. Se puede ver que la estimación NLMS converge con una curva más suave que la de LMS mientras que esta última es más ruidosa. La misma conclusión se puede obtener analizando la Figura \ref{fig:ej5_comp} que contempla el error entre la estimación y el valor verdadero para las últimas 300 muestras. Alli se observa que las estimaciones en NLMS tienen un error más estable que las del LMS que tiene una mayor oscilación.
+	Para comparar los filtros LMS y NLMS se genera la Figura \ref{fig:ej5_comp} que superpone los resultados de ambas estimaciones. Se puede ver que la estimación NLMS converge con una curva más suave que la de LMS mientras que esta última es más ruidosa. La misma conclusión se puede obtener analizando la Figura \ref{fig:ej5_err} que contempla el error entre la estimación y el valor verdadero para las últimas 300 muestras.
 
 	\begin{figure}[h!]
 		\centering
@@ -48,7 +48,22 @@
 		\caption{Comparación de los valores finales de convergencia.}
 		\label{fig:ej5_err}
 	\end{figure}
+	
+	En la siguiente tabla, se observa la varianza de los errores de la figura \ref{fig:ej5_err}. Se observa que para NLMS la varianza de los mismos es menor. Se puede concluir, por lo tanto, que las estimaciones en NLMS tienen un error mas suave, y que las del LMS tienen una mayor variabilidad.
 
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{ccc}
+			\toprule
+			$\sigma^2$ & LMS & NLMS\\
+			\midrule
+			B1 & \num{2.8511e-5} & \num{1.2448e-5} \\
+			B2 & \num{2.1332e-5} & \num{1.8342e-5} \\
+			A2 & \num{4.3231e-6} & \num{2.6510e-6} \\
+			A3 & \num{7.5273e-6} & \num{2.7399e-6} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
 
 	En cuanto a los resultados de la estimación de los parámetros se obtienen los siguientes resultados para el algoritmo NLMS:
 		\begin{table}[h!]
