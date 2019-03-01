@@ -1,7 +1,7 @@
 config_m;
 
 % Imprimir imágenes?
-bool_print=1;
+bool_print=0;
 
 largo_senial_entrada = 1500000;     % Es el largo de la senial u de referencia.
 largo_parte_fir = 2;              % Cantidad de coeficientes del numerador.
